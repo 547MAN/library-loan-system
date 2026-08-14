@@ -22,4 +22,14 @@ public partial class MainWindow : Window
             UseShellExecute = true
         });
     }
+
+    //Opens new window, and closes old one. 
+    //In this case, open Library window and closes Main window (used as login window)
+    private void LoginButton_Click(object sender, RoutedEventArgs e)
+    {
+        var libraryWindow = new LibraryWindow();
+        libraryWindow.Show();
+       
+        Close();
+    }
 }

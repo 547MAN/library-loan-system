@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryLoanSystem.Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#00496e">
+        Title="MainWindow" Height="450" Width="800" 
+        WindowStartupLocation="CenterScreen"
+        Background="#00496e">
     <Grid>
         <TextBlock HorizontalAlignment="Center"
            VerticalAlignment="Bottom"
@@ -69,7 +71,8 @@
                     FontSize="20"
                     Foreground="White"
                     Background="#1C5D99"
-                    Content="Login"/>
+                    Content="Login"
+                    Click="LoginButton_Click"/>
         </Grid>
     </Grid>
 </Window>
