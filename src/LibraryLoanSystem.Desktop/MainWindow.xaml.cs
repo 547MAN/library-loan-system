@@ -28,8 +28,10 @@ public partial class MainWindow : Window
     private void LoginButton_Click(object sender, RoutedEventArgs e)
     {
         var libraryWindow = new LibraryWindow();
+        
         libraryWindow.Show();
-       
+
         Close();
     }
 }
+

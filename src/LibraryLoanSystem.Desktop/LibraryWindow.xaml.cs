@@ -21,5 +21,14 @@ namespace LibraryLoanSystem.Desktop
         {
             InitializeComponent();
         }
-    }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var loginWindow = new MainWindow();
+
+            loginWindow.Show();
+            
+            Close();
+        }
+    }  
 }

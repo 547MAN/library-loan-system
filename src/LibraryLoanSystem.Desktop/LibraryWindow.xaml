@@ -12,5 +12,12 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="28"/>
+        <Button Content="Logout"
+                Width="120"
+                Height="35"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="20"
+                Click="LogoutButton_Click"/>
     </Grid>
 </Window>
