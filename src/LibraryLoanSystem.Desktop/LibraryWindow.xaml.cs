@@ -30,5 +30,17 @@ namespace LibraryLoanSystem.Desktop
             
             Close();
         }
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                SearchResultTextBlock.Text = "Please enter a search term. \n For example 'The Hobbit'";
+                SearchTextBox.Clear();
+                SearchTextBox.Focus();
+                return;
+            }
+            SearchResultTextBlock.Text = $"You searched for: {SearchTextBox.Text}";
+        }
     }  
 }
+
