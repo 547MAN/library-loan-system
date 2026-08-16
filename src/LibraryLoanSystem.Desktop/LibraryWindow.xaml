@@ -19,13 +19,29 @@
                 VerticalAlignment="Top"
                 Margin="20"
                 Click="LogoutButton_Click"/>
-        <TextBox x:Name="SearchTextBox" 
-                 Width="300"
-                 Height="35"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Top"
-                 Margin="0, 100, 0, 0"
-                 KeyDown="SearchTextBox_KeyDown"/>
+        <Grid Width="300"
+              Height="35"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              Margin="0,100,0,0">
+
+            <TextBox x:Name="SearchTextBox"
+                     Padding="5,0,35,0"
+                     KeyDown="SearchTextBox_KeyDown"
+                     TextChanged="SearchTextBox_TextChanged"/>
+                     
+            <Button x:Name="ClearSearchButton"
+                    Content="X"
+                    Width="28"
+                    Height="28"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,3,0"
+                    Background="White"
+                    Visibility="Collapsed"
+                    Click="ClearSearchButton_Click"/>
+        </Grid>
+
         <Button Content="Search"
                 Width="100"
                 Height="35"
@@ -33,6 +49,7 @@
                 VerticalAlignment="Top"
                 Margin="420, 100, 0 ,0"
                 Click="SearchButton_Click"/>
+       
         <TextBlock x:Name="SearchResultTextBlock"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"

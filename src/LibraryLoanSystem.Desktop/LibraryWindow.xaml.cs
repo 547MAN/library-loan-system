@@ -47,6 +47,7 @@ namespace LibraryLoanSystem.Desktop
             {
                 searchTerm = searchTerm.Replace("  ", " ");
             }
+
             SearchResultTextBlock.Text = $"You searched for: {searchTerm}";
         }
 
@@ -56,6 +57,21 @@ namespace LibraryLoanSystem.Desktop
             {
                 SearchButton_Click(sender, e);
             }
+        }
+
+        private void ClearSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchTextBox.Clear();
+            SearchResultTextBlock.Text = string.Empty;
+            SearchTextBox.Focus();
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchResultTextBlock.Text = string.Empty;
+
+            ClearSearchButton.Visibility = string.IsNullOrEmpty(SearchTextBox.Text)
+                ? Visibility.Collapsed : Visibility.Visible;
         }
     }  
 }
