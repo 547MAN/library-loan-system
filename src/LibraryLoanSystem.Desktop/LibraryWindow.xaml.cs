@@ -39,7 +39,15 @@ namespace LibraryLoanSystem.Desktop
                 SearchTextBox.Focus();
                 return;
             }
-            SearchResultTextBlock.Text = $"You searched for: {SearchTextBox.Text}";
+            // Remove leading and trailing whitespace.
+            string searchTerm = SearchTextBox.Text.Trim();
+
+            // Reduce repeated spaces to a single space.
+            while (searchTerm.Contains("  "))
+            {
+                searchTerm = searchTerm.Replace("  ", " ");
+            }
+            SearchResultTextBlock.Text = $"You searched for: {searchTerm}";
         }
     }  
 }
