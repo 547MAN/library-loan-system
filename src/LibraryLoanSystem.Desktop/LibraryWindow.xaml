@@ -24,7 +24,8 @@
                  Height="35"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
-                 Margin="0, 100, 0, 0"/>
+                 Margin="0, 100, 0, 0"
+                 KeyDown="SearchTextBox_KeyDown"/>
         <Button Content="Search"
                 Width="100"
                 Height="35"

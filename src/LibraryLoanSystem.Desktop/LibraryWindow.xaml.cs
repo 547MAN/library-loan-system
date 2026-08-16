@@ -49,6 +49,14 @@ namespace LibraryLoanSystem.Desktop
             }
             SearchResultTextBlock.Text = $"You searched for: {searchTerm}";
         }
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SearchButton_Click(sender, e);
+            }
+        }
     }  
 }
 
