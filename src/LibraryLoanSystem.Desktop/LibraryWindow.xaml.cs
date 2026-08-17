@@ -22,6 +22,20 @@ namespace LibraryLoanSystem.Desktop
             InitializeComponent();
         }
 
+        private readonly string[] books =
+        {
+            "The Hobbit",
+            "Hobbits did nothing wrong",
+            "The Hobbits are guilty",
+            "Hobbits are special",
+            "Hobbits are ordinary",
+            "End of Hobbit Debate",
+            "19",
+            "1984",
+            "Pride and Prejudice",
+            "To Kill a Mockingbird",
+            "The Great Gatsby"
+        };
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             var loginWindow = new MainWindow();
@@ -32,23 +46,7 @@ namespace LibraryLoanSystem.Desktop
         }
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
-            {
-                SearchResultTextBlock.Text = "Please enter a search term. \n For example 'The Hobbit'";
-                SearchTextBox.Clear();
-                SearchTextBox.Focus();
-                return;
-            }
-            // Remove leading and trailing whitespace.
-            string searchTerm = SearchTextBox.Text.Trim();
-
-            // Reduce repeated spaces to a single space.
-            while (searchTerm.Contains("  "))
-            {
-                searchTerm = searchTerm.Replace("  ", " ");
-            }
-
-            SearchResultTextBlock.Text = $"You searched for: {searchTerm}";
+            PerformSearch();
         }
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -72,7 +70,48 @@ namespace LibraryLoanSystem.Desktop
 
             ClearSearchButton.Visibility = string.IsNullOrEmpty(SearchTextBox.Text)
                 ? Visibility.Collapsed : Visibility.Visible;
+
+            if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                PerformSearch();
+            }
         }
-    }  
+
+        private void PerformSearch()
+        {
+
+            if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                SearchResultTextBlock.Text = "Please enter a search term. \n For example 'The Hobbit'";
+                SearchTextBox.Clear();
+                SearchTextBox.Focus();
+                return;
+            }
+
+            // Remove leading and trailing whitespace.
+            string searchTerm = SearchTextBox.Text.Trim();
+
+            // Reduce repeated spaces to a single space.
+            while (searchTerm.Contains("  "))
+            {
+                searchTerm = searchTerm.Replace("  ", " ");
+            }
+
+            // Search for term, store up to 5 matching results in an array, then display them on separate lines.
+            string[] matchingBooks = books
+                .Where(book => book.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .Take(5)
+                .ToArray();
+
+            if (matchingBooks.Length > 0)
+            {
+                SearchResultTextBlock.Text = string.Join(Environment.NewLine, matchingBooks);
+            }
+            else
+            {
+                SearchResultTextBlock.Text = "No Matching books found.";
+            }
+        }
+    }
 }
 
