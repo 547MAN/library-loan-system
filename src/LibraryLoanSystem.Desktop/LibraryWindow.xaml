@@ -41,15 +41,66 @@
                     Visibility="Collapsed"
                     Click="ClearSearchButton_Click"/>
         </Grid>
-
-        <Button Content="Search"
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Margin="530,100,0,0">
+            <Button Content="Search"
                 Width="100"
                 Height="35"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="420, 100, 0 ,0"
+                Margin="0,0,10,0"
                 Click="SearchButton_Click"/>
-       
+            <Button Content="Add filter"
+                    Width="100"
+                    Height="35"
+                    Click="AddFilterButton_Click"/>
+        </StackPanel>
+        <StackPanel x:Name="FilterPanel" 
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Margin="0,150,0,0"
+                    Visibility="Collapsed">
+        <ComboBox x:Name="CategoryComboBox"
+                  Width="160"
+                  Height="30"
+                  SelectedIndex="0">
+                <ComboBoxItem Content="All Categories"/>
+                <ComboBoxItem Content="Dystopian Fiction"/>
+                <ComboBoxItem Content="Fiction"/>
+                <ComboBoxItem Content="Fantasy"/>
+                <ComboBoxItem Content="Science"/>
+                <ComboBoxItem Content="Technology"/>
+                <ComboBoxItem Content="History"/>
+            </ComboBox>
+            <Button Content="Apply filter"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    Click="ApplyFilterButton_Click"/>
+        </StackPanel>
+        <Border x:Name="ActiveFilterTag" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,66,160,0"
+                Padding="8,4"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                CornerRadius="5"
+                Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="ActiveFilterTextBlock"
+                           Text="Category: Fiction"
+                           VerticalAlignment="Center"/>
+                <Button Content="X"
+                        Width="22"
+                        Height="22"
+                        Margin="8,0,0,0"
+                        Click="RemoveFilterButton_Click"/>
+            </StackPanel>
+        </Border>
         <TextBlock x:Name="SearchResultTextBlock"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"

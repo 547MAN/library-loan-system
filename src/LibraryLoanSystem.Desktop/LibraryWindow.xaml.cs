@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LibraryLoanSystem.Desktop.Models;
 
+
 namespace LibraryLoanSystem.Desktop
 {
     /// <summary>
@@ -39,9 +40,48 @@ namespace LibraryLoanSystem.Desktop
                 Author="George Orwell",
                 Category ="Dystopian Fiction",
                 Description ="A dystopian novel."
-            }
-          
+            },
+
+            new Book
+            {
+                Title = "Pride and Prejudice",
+                Author = "Jane Austen",
+                Category = "Fiction",
+                Description = "A novel about relationships, social class, and expectations."
+            },
+
+            new Book
+            {
+                Title = "A Brief History of Time",
+                Author = "Stephen Hawking",
+                Category = "Science",
+                Description = "An introduction to cosmology and the nature of the universe."
+            },
+
+            new Book
+            {
+                Title = "SPQR",
+                Author = "Mary Beard",
+                Category = "History",
+                Description = "A history of ancient Rome."
+            },
+
+            new Book
+            {
+                Title = "The Innovators",
+                Author = "Walter Isaacson",
+                Category = "Technology",
+                Description = "A history of the people who helped develop computers and the internet."
+            },
+
+
+
+
         };
+
+        private string? activeCategory;
+
+
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             var loginWindow = new MainWindow();
@@ -105,8 +145,12 @@ namespace LibraryLoanSystem.Desktop
 
             // Search for term, store up to 5 matching results in an array, then display them on separate lines.
             string[] matchingBooks = books
-                .Where(book => book.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || 
-                book.Author.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+               .Where(book =>
+                (activeCategory == null ||
+                 book.Category.Equals(activeCategory, StringComparison.OrdinalIgnoreCase))
+                &&
+                (book.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                 book.Author.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)))
                 .Select(book => $"{book.Title} by {book.Author}")
                 .Take(5)
                 .ToArray();
@@ -118,6 +162,54 @@ namespace LibraryLoanSystem.Desktop
             else
             {
                 SearchResultTextBlock.Text = "No Matching books found.";
+            }
+        }
+
+        private void AddFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            FilterPanel.Visibility = Visibility.Visible;
+            SearchResultTextBlock.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void ApplyFilterButton_Click (object sender, RoutedEventArgs e)
+        {
+            if (CategoryComboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string selectedCategory = selectedItem.Content?.ToString() ?? "All Categories";
+                FilterPanel.Visibility = Visibility.Collapsed;
+                SearchResultTextBlock.Visibility = Visibility.Visible;
+
+                if (selectedCategory == "All Categories")
+                {
+                    activeCategory = null;
+                    ActiveFilterTag.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    activeCategory = selectedCategory;
+                    ActiveFilterTextBlock.Text = $"Category: {selectedCategory}";
+                    ActiveFilterTag.Visibility = Visibility.Visible;
+                }
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                PerformSearch();
+            }
+
+        }
+
+        private void RemoveFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            activeCategory = null;
+            CategoryComboBox.SelectedIndex = 0;
+            ActiveFilterTag.Visibility=Visibility.Collapsed;
+
+            if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                PerformSearch();
             }
         }
     }
