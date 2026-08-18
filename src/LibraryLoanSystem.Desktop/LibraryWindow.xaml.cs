@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LibraryLoanSystem.Desktop.Models;
 
 namespace LibraryLoanSystem.Desktop
 {
@@ -22,19 +23,24 @@ namespace LibraryLoanSystem.Desktop
             InitializeComponent();
         }
 
-        private readonly string[] books =
+        private readonly Book[] books =
         {
-            "The Hobbit",
-            "Hobbits did nothing wrong",
-            "The Hobbits are guilty",
-            "Hobbits are special",
-            "Hobbits are ordinary",
-            "End of Hobbit Debate",
-            "19",
-            "1984",
-            "Pride and Prejudice",
-            "To Kill a Mockingbird",
-            "The Great Gatsby"
+            new Book
+            {
+                Title ="The hobbit",
+                Author="J.R.R. Tolkien",
+                Category ="Fantasy",
+                Description ="A fantasy adventure"
+            },
+
+            new Book
+            {
+                Title ="1984",
+                Author="George Orwell",
+                Category ="Dystopian Fiction",
+                Description ="A dystopian novel."
+            }
+          
         };
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
@@ -99,7 +105,9 @@ namespace LibraryLoanSystem.Desktop
 
             // Search for term, store up to 5 matching results in an array, then display them on separate lines.
             string[] matchingBooks = books
-                .Where(book => book.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .Where(book => book.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || 
+                book.Author.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .Select(book => $"{book.Title} by {book.Author}")
                 .Take(5)
                 .ToArray();
 
